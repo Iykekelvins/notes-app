@@ -1,14 +1,29 @@
 import { Router } from 'express';
+import { loginUser, registerUser } from '../controllers/authController.ts';
+import { validateBody } from '../middleware/validation.ts';
+import z from 'zod';
 
 const router = Router();
 
-router.post('/login', (req, res) => {
-	res.status(201).json({ message: 'Login successful' });
+const registerSchema = z.object({
+	email: z.string().email('Invalid email format'),
+	username: z
+		.string()
+		.min(3, 'Username must be at least 3 characters')
+		.max(50, 'Username too long'),
+	password: z.string().min(8, 'Password must be at least 8 characters'),
+	firstName: z.string().optional(),
+	lastName: z.string().optional(),
 });
 
-router.post('/register', (req, res) => {
-	res.status(201).json({ message: 'User registered' });
+const loginSchema = z.object({
+	email: z.string().email('Invalid email format'),
+	password: z.string().min(1, 'Password is required'),
 });
+
+router.post('/register', validateBody(registerSchema), registerUser);
+
+router.post('/login', validateBody(loginSchema), loginUser);
 
 router.post('/logout', (req, res) => {
 	res.status(201).json({ message: 'Logout successful' });

@@ -1,12 +1,12 @@
 {
-	"name": "notes-app",
+	"name": "notes-api",
 	"version": "1.0.0",
 	"description": "Notes Taking API with Node.js",
 	"main": "src/index.ts",
 	"scripts": {
-		"dev": "node --watch src/index.ts",
+		"dev": "tsx watch src/index.ts",
 		"start": "node src/index.ts",
-		"test": "vitest run",
+		"test": "cross-env APP_STAGE=test vitest run",
 		"test:watch": "vitest",
 		"test:coverage": "vitest run --coverage",
 		"db:generate": "drizzle-kit generate",
@@ -42,14 +42,22 @@
 		"pg": "^8.21.0",
 		"zod": "^4.4.3"
 	},
+	"engines": {
+		"node": ">=24.3.0"
+	},
 	"devDependencies": {
 		"@types/bcrypt": "^6.0.0",
 		"@types/cors": "^2.8.19",
 		"@types/express": "^5.0.6",
+		"@types/jest": "^30.0.0",
 		"@types/morgan": "^1.9.10",
 		"@types/node": "^25.9.1",
 		"@types/pg": "^8.20.0",
+		"@types/supertest": "^7.2.0",
+		"cross-env": "^10.1.0",
 		"drizzle-kit": "^0.31.10",
-		"typescript": "^6.0.3"
+		"supertest": "^7.2.2",
+		"typescript": "^6.0.3",
+		"vitest": "^4.1.7"
 	}
 }
