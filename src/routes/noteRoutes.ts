@@ -24,7 +24,7 @@ const updateNoteSchema = z.object({
 });
 
 const uuidSchema = z.object({
-	id: z.string().uuid('Invalid habit ID format'),
+	id: z.string().uuid('Invalid note ID format'),
 });
 
 router.use(authenticateToken);
